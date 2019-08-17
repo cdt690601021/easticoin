@@ -50,8 +50,8 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
-    const char* pszTimestamp = "NY Times 05/Oct/2011 Steve Jobs, Apple’s Visionary, Dies at 56";
-    const CScript genesisOutputScript = CScript() << ParseHex("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9") << OP_CHECKSIG;
+    const char* pszTimestamp = "16/08/2019 - BBC News - Meadowhall shoppers scanned in facial recognition trial";
+    const CScript genesisOutputScript = CScript() << ParseHex("048121FCD169C7F14812E46CEB6E44E3FFF49FA3F9B514193E019D13FD4DED9A8089E07A3377858F19959A1FB4F6761E66C652DFE7996CDAA2C7B7052CCB44F84B") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
 
@@ -71,10 +71,10 @@ public:
     CMainParams() {
         strNetworkID = "main";
         consensus.nSubsidyHalvingInterval = 840000;
-        consensus.BIP34Height = 710000;
+        consensus.BIP34Height = 0;
         consensus.BIP34Hash = uint256S("fa09d204a83a768ed5a7c8d441fa62f2043abf420cff1226c7b4329aeb9d51cf");
-        consensus.BIP65Height = 918684; // bab3041e8977e0dc3eeff63fe707b92bde1dd449d8efafb248c27c8264cc311a
-        consensus.BIP66Height = 811879; // 7aceee012833fa8952f8835d8b1b3ae233cd6ab08fdb27a771d2bd7bdc491894
+        consensus.BIP65Height = 0; // bab3041e8977e0dc3eeff63fe707b92bde1dd449d8efafb248c27c8264cc311a
+        consensus.BIP66Height = 0; // 7aceee012833fa8952f8835d8b1b3ae233cd6ab08fdb27a771d2bd7bdc491894
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); 
         consensus.nPowTargetTimespan = 3.5 * 24 * 60 * 60; // 3.5 days
         consensus.nPowTargetSpacing = 2.5 * 60;
@@ -97,7 +97,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1517356801; // January 31st, 2018
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000006805c7318ce2736c0");
+        consensus.nMinimumChainWork = uint256S("0x00");
 
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x1673fa904a93848eca83d5ca82c7af974511a7e640e22edc2976420744f2e56a"); //1155631
@@ -111,22 +111,22 @@ public:
         pchMessageStart[1] = 0xc0;
         pchMessageStart[2] = 0xb6;
         pchMessageStart[3] = 0xdb;
-        nDefaultPort = 9333;
+        nDefaultPort = 12359;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1317972665, 2084524493, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1566004234, 1704728, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x12a765e31ffd4059bada1e25190f6e98c99d9714d334efa41a195a7e7e04bfe2"));
-        assert(genesis.hashMerkleRoot == uint256S("0x97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9"));
+        assert(consensus.hashGenesisBlock == uint256S("0x4b55e1a91e6a5d2aacf97a4229c038525cb96fd64db381f2bc78bdd4591486ee"));
+        assert(genesis.hashMerkleRoot == uint256S("0xc608d0ccffb1e3dd9f57ea40d366a3665aae68231ba43593f5e2d954a5d12ec3"));
 
         // Note that of those with the service bits flag, most only support a subset of possible options
-        vSeeds.push_back(CDNSSeedData("loshan.co.uk", "seed-a.litecoin.loshan.co.uk", true));
-        vSeeds.push_back(CDNSSeedData("thrasher.io", "dnsseed.thrasher.io", true));
-        vSeeds.push_back(CDNSSeedData("litecointools.com", "dnsseed.litecointools.com"));
-        vSeeds.push_back(CDNSSeedData("litecoinpool.org", "dnsseed.litecoinpool.org"));
-        vSeeds.push_back(CDNSSeedData("koin-project.com", "dnsseed.koin-project.com"));
+        //vSeeds.push_back(CDNSSeedData("loshan.co.uk", "seed-a.easticoin.loshan.co.uk", true));
+        //vSeeds.push_back(CDNSSeedData("thrasher.io", "dnsseed.thrasher.io", true));
+        //vSeeds.push_back(CDNSSeedData("easticointools.com", "dnsseed.easticointools.com"));
+        //vSeeds.push_back(CDNSSeedData("easticoinpool.org", "dnsseed.easticoinpool.org"));
+        //vSeeds.push_back(CDNSSeedData("koin-project.com", "dnsseed.koin-project.com"));
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,48);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,33);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
         base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,50);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,176);
@@ -205,7 +205,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1517356801; // January 31st, 2018
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000000000054cb9e7a0");
+        consensus.nMinimumChainWork = uint256S("0x00");
 
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0x43a16a626ef2ffdbe928f2bc26dcd5475c6a1a04f9542dfc6a0a88e5fcf9bd4c"); //8711
@@ -214,20 +214,20 @@ public:
         pchMessageStart[1] = 0xd2;
         pchMessageStart[2] = 0xc8;
         pchMessageStart[3] = 0xf1;
-        nDefaultPort = 19335;
+        nDefaultPort = 23460;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1486949366, 293345, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1486949366, 233258, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x4966625a4b2851d9fdee139e56211a0d88575f59ed816ff5e6a63deb4e3e29a0"));
-        assert(genesis.hashMerkleRoot == uint256S("0x97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9"));
+        assert(consensus.hashGenesisBlock == uint256S("0xe1365cd7faaf38bc713b6df939cd1fc27c5273dfda10caf8d126ddff49e7073f"));
+        assert(genesis.hashMerkleRoot == uint256S("0xc608d0ccffb1e3dd9f57ea40d366a3665aae68231ba43593f5e2d954a5d12ec3"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.push_back(CDNSSeedData("litecointools.com", "testnet-seed.litecointools.com"));
-        vSeeds.push_back(CDNSSeedData("loshan.co.uk", "seed-b.litecoin.loshan.co.uk", true));
-        vSeeds.push_back(CDNSSeedData("thrasher.io", "dnsseed-testnet.thrasher.io", true));
+        //vSeeds.push_back(CDNSSeedData("easticointools.com", "testnet-seed.easticointools.com"));
+        //vSeeds.push_back(CDNSSeedData("loshan.co.uk", "seed-b.easticoin.loshan.co.uk", true));
+        //vSeeds.push_back(CDNSSeedData("thrasher.io", "dnsseed-testnet.thrasher.io", true));
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
@@ -303,8 +303,8 @@ public:
 
         genesis = CreateGenesisBlock(1296688602, 0, 0x207fffff, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x530827f38f93b43ed12af0b3ad25a288dc02ed74d6d7857862df51fc56c416f9"));
-        assert(genesis.hashMerkleRoot == uint256S("0x97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9"));
+        assert(consensus.hashGenesisBlock == uint256S("0x161e3689725d487b9b3bad1147de07f38220980cf3244e9833e4ddfecf579677"));
+        assert(genesis.hashMerkleRoot == uint256S("0xc608d0ccffb1e3dd9f57ea40d366a3665aae68231ba43593f5e2d954a5d12ec3"));
 
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();      //!< Regtest mode doesn't have any DNS seeds.
